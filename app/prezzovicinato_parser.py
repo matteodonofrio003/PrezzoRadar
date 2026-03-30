@@ -31,9 +31,11 @@ elif PROVIDER == "openai":
     _client = OpenAI()                       # legge OPENAI_API_KEY
     LLM_MODEL = "gpt-4o-mini"
 elif PROVIDER == "gemini":
-    import google.generativeai as genai
-    genai.configure()                        # legge GOOGLE_API_KEY
-    LLM_MODEL = "gemini-1.5-flash"
+    from google import genai
+    from google.genai import types
+    # Passiamo esplicitamente la chiave che abbiamo nel .env
+    _client = genai.Client(api_key=os.environ.get("GOOGLE_API_KEY"))
+    LLM_MODEL = "gemini-1.5-flash-8b"
 
 
 # =============================================================================
@@ -182,12 +184,14 @@ def _llm_call(prompt_user: str) -> str:
         return resp.choices[0].message.content
 
     elif PROVIDER == "gemini":
-        model = genai.GenerativeModel(
-            model_name=LLM_MODEL,
-            system_instruction=SYSTEM_PROMPT,
-            generation_config={"response_mime_type": "application/json"},
+        resp = _client.models.generate_content(
+            model=LLM_MODEL,
+            contents=prompt_user,
+            config=types.GenerateContentConfig(
+                system_instruction=SYSTEM_PROMPT,
+                response_mime_type="application/json",
+            )
         )
-        resp = model.generate_content(prompt_user)
         return resp.text
 
     raise ValueError(f"Provider non supportato: {PROVIDER}")
