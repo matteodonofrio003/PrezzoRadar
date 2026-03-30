@@ -1,0 +1,92 @@
+[
+{
+  "directory": "C:/progetti/PrezzoRadar/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP -DUNICODE -D_DEBUG -D_HAS_EXCEPTIONS=0 -D_UNICODE -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\include -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17 /W4 /WX /wd\\\"4100\\\" /EHsc /Foflutter\\CMakeFiles\\flutter_wrapper_plugin.dir\\ephemeral\\cpp_client_wrapper\\core_implementations.cc.obj /Fdflutter\\CMakeFiles\\flutter_wrapper_plugin.dir\\flutter_wrapper_plugin.pdb /FS -c C:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\core_implementations.cc",
+  "file": "C:/progetti/PrezzoRadar/prezzovicinato_app/windows/flutter/ephemeral/cpp_client_wrapper/core_implementations.cc",
+  "output": "C:/progetti/PrezzoRadar/build/flutter/CMakeFiles/flutter_wrapper_plugin.dir/ephemeral/cpp_client_wrapper/core_implementations.cc.obj"
+},
+{
+  "directory": "C:/progetti/PrezzoRadar/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP -DUNICODE -D_DEBUG -D_HAS_EXCEPTIONS=0 -D_UNICODE -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\include -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17 /W4 /WX /wd\\\"4100\\\" /EHsc /Foflutter\\CMakeFiles\\flutter_wrapper_plugin.dir\\ephemeral\\cpp_client_wrapper\\standard_codec.cc.obj /Fdflutter\\CMakeFiles\\flutter_wrapper_plugin.dir\\flutter_wrapper_plugin.pdb /FS -c C:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\standard_codec.cc",
+  "file": "C:/progetti/PrezzoRadar/prezzovicinato_app/windows/flutter/ephemeral/cpp_client_wrapper/standard_codec.cc",
+  "output": "C:/progetti/PrezzoRadar/build/flutter/CMakeFiles/flutter_wrapper_plugin.dir/ephemeral/cpp_client_wrapper/standard_codec.cc.obj"
+},
+{
+  "directory": "C:/progetti/PrezzoRadar/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP -DUNICODE -D_DEBUG -D_HAS_EXCEPTIONS=0 -D_UNICODE -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\include -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17 /W4 /WX /wd\\\"4100\\\" /EHsc /Foflutter\\CMakeFiles\\flutter_wrapper_plugin.dir\\ephemeral\\cpp_client_wrapper\\plugin_registrar.cc.obj /Fdflutter\\CMakeFiles\\flutter_wrapper_plugin.dir\\flutter_wrapper_plugin.pdb /FS -c C:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\plugin_registrar.cc",
+  "file": "C:/progetti/PrezzoRadar/prezzovicinato_app/windows/flutter/ephemeral/cpp_client_wrapper/plugin_registrar.cc",
+  "output": "C:/progetti/PrezzoRadar/build/flutter/CMakeFiles/flutter_wrapper_plugin.dir/ephemeral/cpp_client_wrapper/plugin_registrar.cc.obj"
+},
+{
+  "directory": "C:/progetti/PrezzoRadar/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP -DUNICODE -D_DEBUG -D_HAS_EXCEPTIONS=0 -D_UNICODE -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\include -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17 /W4 /WX /wd\\\"4100\\\" /EHsc /Foflutter\\CMakeFiles\\flutter_wrapper_app.dir\\ephemeral\\cpp_client_wrapper\\core_implementations.cc.obj /Fdflutter\\CMakeFiles\\flutter_wrapper_app.dir\\flutter_wrapper_app.pdb /FS -c C:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\core_implementations.cc",
+  "file": "C:/progetti/PrezzoRadar/prezzovicinato_app/windows/flutter/ephemeral/cpp_client_wrapper/core_implementations.cc",
+  "output": "C:/progetti/PrezzoRadar/build/flutter/CMakeFiles/flutter_wrapper_app.dir/ephemeral/cpp_client_wrapper/core_implementations.cc.obj"
+},
+{
+  "directory": "C:/progetti/PrezzoRadar/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP -DUNICODE -D_DEBUG -D_HAS_EXCEPTIONS=0 -D_UNICODE -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\include -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17 /W4 /WX /wd\\\"4100\\\" /EHsc /Foflutter\\CMakeFiles\\flutter_wrapper_app.dir\\ephemeral\\cpp_client_wrapper\\standard_codec.cc.obj /Fdflutter\\CMakeFiles\\flutter_wrapper_app.dir\\flutter_wrapper_app.pdb /FS -c C:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\standard_codec.cc",
+  "file": "C:/progetti/PrezzoRadar/prezzovicinato_app/windows/flutter/ephemeral/cpp_client_wrapper/standard_codec.cc",
+  "output": "C:/progetti/PrezzoRadar/build/flutter/CMakeFiles/flutter_wrapper_app.dir/ephemeral/cpp_client_wrapper/standard_codec.cc.obj"
+},
+{
+  "directory": "C:/progetti/PrezzoRadar/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP -DUNICODE -D_DEBUG -D_HAS_EXCEPTIONS=0 -D_UNICODE -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\include -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17 /W4 /WX /wd\\\"4100\\\" /EHsc /Foflutter\\CMakeFiles\\flutter_wrapper_app.dir\\ephemeral\\cpp_client_wrapper\\flutter_engine.cc.obj /Fdflutter\\CMakeFiles\\flutter_wrapper_app.dir\\flutter_wrapper_app.pdb /FS -c C:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\flutter_engine.cc",
+  "file": "C:/progetti/PrezzoRadar/prezzovicinato_app/windows/flutter/ephemeral/cpp_client_wrapper/flutter_engine.cc",
+  "output": "C:/progetti/PrezzoRadar/build/flutter/CMakeFiles/flutter_wrapper_app.dir/ephemeral/cpp_client_wrapper/flutter_engine.cc.obj"
+},
+{
+  "directory": "C:/progetti/PrezzoRadar/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP -DUNICODE -D_DEBUG -D_HAS_EXCEPTIONS=0 -D_UNICODE -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\include -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17 /W4 /WX /wd\\\"4100\\\" /EHsc /Foflutter\\CMakeFiles\\flutter_wrapper_app.dir\\ephemeral\\cpp_client_wrapper\\flutter_view_controller.cc.obj /Fdflutter\\CMakeFiles\\flutter_wrapper_app.dir\\flutter_wrapper_app.pdb /FS -c C:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\flutter_view_controller.cc",
+  "file": "C:/progetti/PrezzoRadar/prezzovicinato_app/windows/flutter/ephemeral/cpp_client_wrapper/flutter_view_controller.cc",
+  "output": "C:/progetti/PrezzoRadar/build/flutter/CMakeFiles/flutter_wrapper_app.dir/ephemeral/cpp_client_wrapper/flutter_view_controller.cc.obj"
+},
+{
+  "directory": "C:/progetti/PrezzoRadar/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP -DFLUTTER_VERSION=\\\"1.0.0+1\\\" -DFLUTTER_VERSION_BUILD=1 -DFLUTTER_VERSION_MAJOR=1 -DFLUTTER_VERSION_MINOR=0 -DFLUTTER_VERSION_PATCH=0 -DNOMINMAX -DUNICODE -D_DEBUG -D_HAS_EXCEPTIONS=0 -D_UNICODE -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\include -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\.plugin_symlinks\\geolocator_windows\\windows\\include /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17 /W4 /WX /wd\\\"4100\\\" /EHsc /Forunner\\CMakeFiles\\prezzovicinato_app.dir\\flutter_window.cpp.obj /Fdrunner\\CMakeFiles\\prezzovicinato_app.dir\\ /FS -c C:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\runner\\flutter_window.cpp",
+  "file": "C:/progetti/PrezzoRadar/prezzovicinato_app/windows/runner/flutter_window.cpp",
+  "output": "C:/progetti/PrezzoRadar/build/runner/CMakeFiles/prezzovicinato_app.dir/flutter_window.cpp.obj"
+},
+{
+  "directory": "C:/progetti/PrezzoRadar/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP -DFLUTTER_VERSION=\\\"1.0.0+1\\\" -DFLUTTER_VERSION_BUILD=1 -DFLUTTER_VERSION_MAJOR=1 -DFLUTTER_VERSION_MINOR=0 -DFLUTTER_VERSION_PATCH=0 -DNOMINMAX -DUNICODE -D_DEBUG -D_HAS_EXCEPTIONS=0 -D_UNICODE -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\include -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\.plugin_symlinks\\geolocator_windows\\windows\\include /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17 /W4 /WX /wd\\\"4100\\\" /EHsc /Forunner\\CMakeFiles\\prezzovicinato_app.dir\\main.cpp.obj /Fdrunner\\CMakeFiles\\prezzovicinato_app.dir\\ /FS -c C:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\runner\\main.cpp",
+  "file": "C:/progetti/PrezzoRadar/prezzovicinato_app/windows/runner/main.cpp",
+  "output": "C:/progetti/PrezzoRadar/build/runner/CMakeFiles/prezzovicinato_app.dir/main.cpp.obj"
+},
+{
+  "directory": "C:/progetti/PrezzoRadar/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP -DFLUTTER_VERSION=\\\"1.0.0+1\\\" -DFLUTTER_VERSION_BUILD=1 -DFLUTTER_VERSION_MAJOR=1 -DFLUTTER_VERSION_MINOR=0 -DFLUTTER_VERSION_PATCH=0 -DNOMINMAX -DUNICODE -D_DEBUG -D_HAS_EXCEPTIONS=0 -D_UNICODE -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\include -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\.plugin_symlinks\\geolocator_windows\\windows\\include /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17 /W4 /WX /wd\\\"4100\\\" /EHsc /Forunner\\CMakeFiles\\prezzovicinato_app.dir\\utils.cpp.obj /Fdrunner\\CMakeFiles\\prezzovicinato_app.dir\\ /FS -c C:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\runner\\utils.cpp",
+  "file": "C:/progetti/PrezzoRadar/prezzovicinato_app/windows/runner/utils.cpp",
+  "output": "C:/progetti/PrezzoRadar/build/runner/CMakeFiles/prezzovicinato_app.dir/utils.cpp.obj"
+},
+{
+  "directory": "C:/progetti/PrezzoRadar/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP -DFLUTTER_VERSION=\\\"1.0.0+1\\\" -DFLUTTER_VERSION_BUILD=1 -DFLUTTER_VERSION_MAJOR=1 -DFLUTTER_VERSION_MINOR=0 -DFLUTTER_VERSION_PATCH=0 -DNOMINMAX -DUNICODE -D_DEBUG -D_HAS_EXCEPTIONS=0 -D_UNICODE -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\include -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\.plugin_symlinks\\geolocator_windows\\windows\\include /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17 /W4 /WX /wd\\\"4100\\\" /EHsc /Forunner\\CMakeFiles\\prezzovicinato_app.dir\\win32_window.cpp.obj /Fdrunner\\CMakeFiles\\prezzovicinato_app.dir\\ /FS -c C:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\runner\\win32_window.cpp",
+  "file": "C:/progetti/PrezzoRadar/prezzovicinato_app/windows/runner/win32_window.cpp",
+  "output": "C:/progetti/PrezzoRadar/build/runner/CMakeFiles/prezzovicinato_app.dir/win32_window.cpp.obj"
+},
+{
+  "directory": "C:/progetti/PrezzoRadar/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP -DFLUTTER_VERSION=\\\"1.0.0+1\\\" -DFLUTTER_VERSION_BUILD=1 -DFLUTTER_VERSION_MAJOR=1 -DFLUTTER_VERSION_MINOR=0 -DFLUTTER_VERSION_PATCH=0 -DNOMINMAX -DUNICODE -D_DEBUG -D_HAS_EXCEPTIONS=0 -D_UNICODE -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\include -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\.plugin_symlinks\\geolocator_windows\\windows\\include /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17 /W4 /WX /wd\\\"4100\\\" /EHsc /Forunner\\CMakeFiles\\prezzovicinato_app.dir\\__\\flutter\\generated_plugin_registrant.cc.obj /Fdrunner\\CMakeFiles\\prezzovicinato_app.dir\\ /FS -c C:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\generated_plugin_registrant.cc",
+  "file": "C:/progetti/PrezzoRadar/prezzovicinato_app/windows/flutter/generated_plugin_registrant.cc",
+  "output": "C:/progetti/PrezzoRadar/build/runner/CMakeFiles/prezzovicinato_app.dir/__/flutter/generated_plugin_registrant.cc.obj"
+},
+{
+  "directory": "C:/progetti/PrezzoRadar/build",
+  "command": "C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x86\\rc.exe -DFLUTTER_VERSION=\\\"1.0.0+1\\\" -DFLUTTER_VERSION_BUILD=1 -DFLUTTER_VERSION_MAJOR=1 -DFLUTTER_VERSION_MINOR=0 -DFLUTTER_VERSION_PATCH=0 -DNOMINMAX -DUNICODE -D_DEBUG -D_HAS_EXCEPTIONS=0 -D_UNICODE -I C:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows -I C:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral -I C:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\include -I C:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\.plugin_symlinks\\geolocator_windows\\windows\\include -DWIN32 -D_DEBUG /fo runner\\CMakeFiles\\prezzovicinato_app.dir\\Runner.rc.res C:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\runner\\Runner.rc",
+  "file": "C:/progetti/PrezzoRadar/prezzovicinato_app/windows/runner/Runner.rc",
+  "output": "C:/progetti/PrezzoRadar/build/runner/CMakeFiles/prezzovicinato_app.dir/Runner.rc.res"
+},
+{
+  "directory": "C:/progetti/PrezzoRadar/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP -DFLUTTER_PLUGIN_IMPL -DUNICODE -D_DEBUG -D_HAS_EXCEPTIONS=0 -D_UNICODE -Dgeolocator_windows_plugin_EXPORTS -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\include -external:IC:\\progetti\\PrezzoRadar\\build\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 /W4 /WX /wd\\\"4100\\\" /EHsc /await:strict /Foplugins\\geolocator_windows\\CMakeFiles\\geolocator_windows_plugin.dir\\geolocator_windows.cpp.obj /Fdplugins\\geolocator_windows\\CMakeFiles\\geolocator_windows_plugin.dir\\ /FS -c C:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\.plugin_symlinks\\geolocator_windows\\windows\\geolocator_windows.cpp",
+  "file": "C:/progetti/PrezzoRadar/prezzovicinato_app/windows/flutter/ephemeral/.plugin_symlinks/geolocator_windows/windows/geolocator_windows.cpp",
+  "output": "C:/progetti/PrezzoRadar/build/plugins/geolocator_windows/CMakeFiles/geolocator_windows_plugin.dir/geolocator_windows.cpp.obj"
+},
+{
+  "directory": "C:/progetti/PrezzoRadar/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP -DFLUTTER_PLUGIN_IMPL -DUNICODE -D_DEBUG -D_HAS_EXCEPTIONS=0 -D_UNICODE -Dgeolocator_windows_plugin_EXPORTS -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral -IC:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\cpp_client_wrapper\\include -external:IC:\\progetti\\PrezzoRadar\\build\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 /W4 /WX /wd\\\"4100\\\" /EHsc /await:strict /Foplugins\\geolocator_windows\\CMakeFiles\\geolocator_windows_plugin.dir\\geolocator_plugin.cpp.obj /Fdplugins\\geolocator_windows\\CMakeFiles\\geolocator_windows_plugin.dir\\ /FS -c C:\\progetti\\PrezzoRadar\\prezzovicinato_app\\windows\\flutter\\ephemeral\\.plugin_symlinks\\geolocator_windows\\windows\\geolocator_plugin.cpp",
+  "file": "C:/progetti/PrezzoRadar/prezzovicinato_app/windows/flutter/ephemeral/.plugin_symlinks/geolocator_windows/windows/geolocator_plugin.cpp",
+  "output": "C:/progetti/PrezzoRadar/build/plugins/geolocator_windows/CMakeFiles/geolocator_windows_plugin.dir/geolocator_plugin.cpp.obj"
+}
+]

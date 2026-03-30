@@ -1,0 +1,15 @@
+# Target labels
+ nuget-populate
+# Source files and their labels
+C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/CMakeFiles/nuget-populate
+C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/CMakeFiles/nuget-populate.rule
+C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/CMakeFiles/nuget-populate-complete.rule
+C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/nuget-populate-prefix/src/nuget-populate-stamp/nuget-populate-build.rule
+C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/nuget-populate-prefix/src/nuget-populate-stamp/nuget-populate-configure.rule
+C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/nuget-populate-prefix/src/nuget-populate-stamp/nuget-populate-copyfile.rule
+C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/nuget-populate-prefix/src/nuget-populate-stamp/nuget-populate-download.rule
+C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/nuget-populate-prefix/src/nuget-populate-stamp/nuget-populate-install.rule
+C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/nuget-populate-prefix/src/nuget-populate-stamp/nuget-populate-mkdir.rule
+C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/nuget-populate-prefix/src/nuget-populate-stamp/nuget-populate-patch.rule
+C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/nuget-populate-prefix/src/nuget-populate-stamp/nuget-populate-test.rule
+C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/nuget-populate-prefix/src/nuget-populate-stamp/nuget-populate-update.rule

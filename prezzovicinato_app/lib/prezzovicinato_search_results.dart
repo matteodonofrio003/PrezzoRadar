@@ -73,7 +73,7 @@ class OfferResult {
 
 // ── API Service ──────────────────────────────────────────────────────────────
 
-class PrezzoVicinato Api {
+class PrezzoVicinatoApi {
   // ignore: non_constant_identifier_names
   static const _baseUrl = 'https://api.prezzovicinato.it/v1';
 
@@ -453,8 +453,8 @@ class _SupermarketLogo extends StatelessWidget {
               ? CachedNetworkImage(
                   imageUrl:   url!,
                   fit:        BoxFit.contain,
-                  placeholder: (_, __) => _LogoFallback(catena: catena),
-                  errorWidget: (_, __, ___) => _LogoFallback(catena: catena),
+                  placeholder: (_, _) => _LogoFallback(catena: catena),
+                  errorWidget: (_, _, _) => _LogoFallback(catena: catena),
                 )
               : _LogoFallback(catena: catena),
         ),
@@ -571,7 +571,7 @@ class _SkeletonList extends StatelessWidget {
         child: ListView.builder(
           padding:     const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           itemCount:   5,
-          itemBuilder: (_, __) => _SkeletonCard(),
+          itemBuilder: (_, _) => _SkeletonCard(),
         ),
       );
 }

@@ -1,0 +1,3 @@
+C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/CMakeFiles/nuget-populate.dir
+C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/CMakeFiles/edit_cache.dir
+C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/CMakeFiles/rebuild_cache.dir

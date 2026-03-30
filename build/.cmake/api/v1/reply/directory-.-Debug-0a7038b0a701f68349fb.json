@@ -1,0 +1,144 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 75,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 78,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 81,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 85,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 92,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 99,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 102,
+				"parent" : 0
+			}
+		]
+	},
+	"codemodelVersion" : 
+	{
+		"major" : 2,
+		"minor" : 9
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Runtime",
+			"destination" : "C:/progetti/PrezzoRadar/build/runner",
+			"paths" : 
+			[
+				"runner/prezzovicinato_app.exe"
+			],
+			"targetId" : "prezzovicinato_app::@056c4f61b0156d1d9b06",
+			"targetIndex" : 4,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Runtime",
+			"destination" : "C:/progetti/PrezzoRadar/build/runner/data",
+			"paths" : 
+			[
+				"flutter/ephemeral/icudtl.dat"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 3,
+			"component" : "Runtime",
+			"destination" : "C:/progetti/PrezzoRadar/build/runner",
+			"paths" : 
+			[
+				"flutter/ephemeral/flutter_windows.dll"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 4,
+			"component" : "Runtime",
+			"destination" : "C:/progetti/PrezzoRadar/build/runner",
+			"paths" : 
+			[
+				"C:/progetti/PrezzoRadar/build/plugins/geolocator_windows/geolocator_windows_plugin.dll"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 5,
+			"component" : "Runtime",
+			"destination" : "C:/progetti/PrezzoRadar/build/runner",
+			"paths" : 
+			[
+				{
+					"from" : "C:/progetti/PrezzoRadar/prezzovicinato_app/build/native_assets/windows",
+					"to" : "."
+				}
+			],
+			"type" : "directory"
+		},
+		{
+			"backtrace" : 6,
+			"component" : "Runtime",
+			"type" : "code"
+		},
+		{
+			"backtrace" : 7,
+			"component" : "Runtime",
+			"destination" : "C:/progetti/PrezzoRadar/build/runner/data",
+			"paths" : 
+			[
+				"C:/progetti/PrezzoRadar/prezzovicinato_app/build//flutter_assets"
+			],
+			"type" : "directory"
+		}
+	],
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	}
+}

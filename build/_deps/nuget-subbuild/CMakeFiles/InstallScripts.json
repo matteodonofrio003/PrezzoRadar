@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

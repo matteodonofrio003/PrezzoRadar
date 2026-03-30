@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/progetti/PrezzoRadar/build/cmake_install.cmake",
+		"C:/progetti/PrezzoRadar/build/flutter/cmake_install.cmake",
+		"C:/progetti/PrezzoRadar/build/runner/cmake_install.cmake",
+		"C:/progetti/PrezzoRadar/build/plugins/geolocator_windows/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
