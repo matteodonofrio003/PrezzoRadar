@@ -2,16 +2,6 @@
 	"configurations" : 
 	[
 		{
-			"abstractTargets" : 
-			[
-				{
-					"directoryIndex" : 1,
-					"id" : "flutter::@2bb09fbb03a373b2cb34",
-					"jsonFile" : "target-flutter-Debug-ffa29273d94c6b5fb93c.json",
-					"name" : "flutter",
-					"projectIndex" : 0
-				}
-			],
 			"directories" : 
 			[
 				{
@@ -23,7 +13,7 @@
 						3
 					],
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-0a7038b0a701f68349fb.json",
+					"jsonFile" : "directory-.-Debug-f7e8df6f4506f734c537.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.14"
@@ -32,12 +22,8 @@
 					"source" : "."
 				},
 				{
-					"abstractTargetIndexes" : 
-					[
-						0
-					],
 					"build" : "flutter",
-					"jsonFile" : "directory-flutter-Debug-205896370f9d68e3c207.json",
+					"jsonFile" : "directory-flutter-Debug-79e0260f2327d8493c28.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.14"
@@ -54,7 +40,7 @@
 				},
 				{
 					"build" : "runner",
-					"jsonFile" : "directory-runner-Debug-81b587848c35c526aff6.json",
+					"jsonFile" : "directory-runner-Debug-86f38b7dcb6f33eb04e4.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.14"
@@ -69,7 +55,7 @@
 				},
 				{
 					"build" : "plugins/geolocator_windows",
-					"jsonFile" : "directory-plugins.geolocator_windows-Debug-3f7a31f05abbb16c0dba.json",
+					"jsonFile" : "directory-plugins.geolocator_windows-Debug-5b99740e5714330fbcd0.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.15"
@@ -87,10 +73,6 @@
 			"projects" : 
 			[
 				{
-					"abstractTargetIndexes" : 
-					[
-						0
-					],
 					"childIndexes" : 
 					[
 						1,
@@ -139,35 +121,35 @@
 				{
 					"directoryIndex" : 1,
 					"id" : "flutter_assemble::@2bb09fbb03a373b2cb34",
-					"jsonFile" : "target-flutter_assemble-Debug-dc2b1b7138cecfba95e2.json",
+					"jsonFile" : "target-flutter_assemble-Debug-087a7f0fcc8f5500f16d.json",
 					"name" : "flutter_assemble",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "flutter_wrapper_app::@2bb09fbb03a373b2cb34",
-					"jsonFile" : "target-flutter_wrapper_app-Debug-bc106d0ba5915e7e2041.json",
+					"jsonFile" : "target-flutter_wrapper_app-Debug-2041211029337f30e027.json",
 					"name" : "flutter_wrapper_app",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "flutter_wrapper_plugin::@2bb09fbb03a373b2cb34",
-					"jsonFile" : "target-flutter_wrapper_plugin-Debug-889f08c7cd41a30077ab.json",
+					"jsonFile" : "target-flutter_wrapper_plugin-Debug-5d1347a78adcb8056a7b.json",
 					"name" : "flutter_wrapper_plugin",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 3,
 					"id" : "geolocator_windows_plugin::@246349889b4a55bdeebd",
-					"jsonFile" : "target-geolocator_windows_plugin-Debug-aebc45fb8737dc160885.json",
+					"jsonFile" : "target-geolocator_windows_plugin-Debug-72b6caa1c08e48dc3620.json",
 					"name" : "geolocator_windows_plugin",
 					"projectIndex" : 2
 				},
 				{
 					"directoryIndex" : 2,
 					"id" : "prezzovicinato_app::@056c4f61b0156d1d9b06",
-					"jsonFile" : "target-prezzovicinato_app-Debug-5f456f29d6e8c7a9d441.json",
+					"jsonFile" : "target-prezzovicinato_app-Debug-c2126ada2e51f870b85c.json",
 					"name" : "prezzovicinato_app",
 					"projectIndex" : 1
 				}
@@ -183,6 +165,6 @@
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 9
+		"minor" : 8
 	}
 }

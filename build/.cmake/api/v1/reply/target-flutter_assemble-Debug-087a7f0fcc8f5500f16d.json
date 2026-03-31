@@ -23,11 +23,6 @@
 			}
 		]
 	},
-	"codemodelVersion" : 
-	{
-		"major" : 2,
-		"minor" : 9
-	},
 	"id" : "flutter_assemble::@2bb09fbb03a373b2cb34",
 	"name" : "flutter_assemble",
 	"paths" : 

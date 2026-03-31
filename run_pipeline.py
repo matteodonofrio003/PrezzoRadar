@@ -1,139 +1,137 @@
 #!/usr/bin/env python3
 """
-run_pipeline.py — Script standalone MVP
+run_pipeline.py — versione aggiornata con fix anti-timeout.
+
 Uso: python run_pipeline.py
 
-Fa tutto in sequenza:
-  1. Playwright → scarica il testo del volantino di Esselunga (e/o Lidl)
-  2. Gemini     → struttura il testo in JSON offerte
-  3. PostgreSQL → inserisce le offerte nel DB
-
-Dipendenze:
-  pip install playwright google-generativeai sqlalchemy psycopg2-binary geoalchemy2
-  playwright install chromium
+Se i siti bloccano lo scraping, usa invece:
+    python seed_db.py   ← dati mock realistici, funziona sempre
 """
 
-import json
-import os
-import re
-import sys
-import unicodedata
+import json, os, re, sys, unicodedata
 from datetime import date, timedelta
 from typing import Optional
 
-from google import genai
-from google.genai.types import GenerateContentConfig
+import google.generativeai as genai
 from playwright.sync_api import sync_playwright
-from sqlalchemy import text, types
+from sqlalchemy import text
 
-# Importa engine e modelli dal nostro database.py
-# Se lanci lo script dalla root del progetto: python run_pipeline.py
 sys.path.insert(0, os.path.dirname(__file__))
 from app.database import engine, SessionLocal, init_db, Supermercato, Offerta
 
-# ─── Configurazione ───────────────────────────────────────────────────────────
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "LA_TUA_API_KEY_QUI")
 
-GEMINI_API_KEY = os.getenv("GOOGLE_API_KEY")
-
-# Catene da processare in questa run.
-# Ogni entry: nome catena, URL volantino, lat/lon di un punto vendita di esempio.
-# ⚠️  Sostituisci lat/lon con coordinate reali dei tuoi punti vendita test.
 CATENE = [
     {
-        "catena":    "Esselunga",
-        "url":       "https://www.esselunga.it/area-pubblica/negozi-e-volantini/volantino.html",
-        "lat":       45.4654,   # Milano centro — cambia con il tuo punto vendita
-        "lon":       9.1859,
-        "logo_url":  "https://upload.wikimedia.org/wikipedia/it/thumb/0/06/Esselunga_logo.svg/200px-Esselunga_logo.svg.png",
+        "catena":   "Esselunga",
+        "url":      "https://www.esselunga.it/area-pubblica/negozi-e-volantini/volantino.html",
+        "lat":      40.8518,   # ← cambia con le tue coordinate
+        "lon":      14.2681,
+        "logo_url": "https://upload.wikimedia.org/wikipedia/it/thumb/0/06/Esselunga_logo.svg/200px-Esselunga_logo.svg.png",
     },
     {
-        "catena":    "Lidl",
-        "url":       "https://www.lidl.it/offerte-settimanali",
-        "lat":       45.4700,
-        "lon":       9.2000,
-        "logo_url":  "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Lidl-Logo.svg/200px-Lidl-Logo.svg.png",
+        "catena":   "Lidl",
+        "url":      "https://www.lidl.it/offerte-settimanali",
+        "lat":      40.8500,
+        "lon":      14.2550,
+        "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Lidl-Logo.svg/200px-Lidl-Logo.svg.png",
     },
 ]
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-#  STEP 1 — SCRAPING con Playwright
-# ─────────────────────────────────────────────────────────────────────────────
+# ─── STEP 1: SCRAPING ────────────────────────────────────────────────────────
 
 def scrape_testo_volantino(url: str, catena: str) -> str:
-    """
-    Apre la pagina con Playwright, attende il caricamento JS,
-    ed estrae tutto il testo visibile sulla pagina.
-    Ritorna una stringa grezza (max 15.000 caratteri per non sforare il contesto Gemini).
-    """
     print(f"  🌐  Apro {url} …")
+
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        ctx     = browser.new_context(
+        browser = p.chromium.launch(
+            headless=True,
+            args=[
+                "--no-sandbox",
+                "--disable-blink-features=AutomationControlled",
+            ],
+        )
+        ctx = browser.new_context(
             user_agent=(
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                 "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/120.0.0.0 Safari/537.36"
+                "Chrome/124.0.0.0 Safari/537.36"
             ),
             locale="it-IT",
-            viewport={"width": 1280, "height": 900},
+            viewport={"width": 1366, "height": 768},
         )
-        # Blocca immagini e font per velocizzare il caricamento
+
+        # Rimuovi firma webdriver che i siti anti-bot rilevano
+        ctx.add_init_script(
+            "Object.defineProperty(navigator,'webdriver',{get:()=>undefined})"
+        )
+
+        # Blocca solo media, non JS/XHR/CSS
         ctx.route(
-            "**/*.{png,jpg,jpeg,gif,webp,svg,woff,woff2,ttf}",
-            lambda route, _: route.abort()
+            "**/*",
+            lambda route, req: route.abort()
+            if req.resource_type in ("image", "font", "media")
+            else route.continue_()
         )
+
         page = ctx.new_page()
+        testo = ""
 
         try:
-            page.goto(url, wait_until="domcontentloaded", timeout=30_000)
-            # Aspetta che ci sia del contenuto testuale significativo
-            page.wait_for_timeout(3000)
+            # FIX CHIAVE: "domcontentloaded" invece di "networkidle"
+            # networkidle va in timeout su siti con polling continuo
+            page.goto(url, wait_until="domcontentloaded", timeout=45_000)
 
-            # Prova a cliccare su "Accetta cookie" se presente
-            for selector in [
+            # Aspetta testo significativo (max 8s)
+            try:
+                page.wait_for_function("document.body.innerText.length > 500", timeout=8_000)
+            except Exception:
+                pass
+
+            # Cookie banner — prova vari selettori comuni
+            for sel in [
+                "button:has-text('Accetta tutto')",
                 "button:has-text('Accetta')",
                 "button:has-text('Accetto')",
-                "button:has-text('Accept')",
-                "#cookieAccept",
+                "#onetrust-accept-btn-handler",
                 ".cookie-accept",
             ]:
                 try:
-                    page.click(selector, timeout=2000)
-                    page.wait_for_timeout(1000)
+                    page.locator(sel).first.click(timeout=2_000)
+                    page.wait_for_timeout(1_000)
                     break
                 except Exception:
-                    pass
+                    continue
 
-            # Scorri la pagina per caricare il contenuto lazy
+            # Scroll per contenuto lazy
+            page.evaluate("window.scrollTo(0, document.body.scrollHeight / 2)")
+            page.wait_for_timeout(1_500)
             page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-            page.wait_for_timeout(2000)
+            page.wait_for_timeout(1_500)
 
-            # Estrai tutto il testo visibile
             testo = page.inner_text("body")
 
         except Exception as e:
-            print(f"  ⚠️  Playwright errore su {catena}: {e}")
-            testo = ""
+            print(f"  ⚠️  Errore Playwright: {e}")
+            # Screenshot di debug per capire cosa ha caricato
+            try:
+                debug = f"debug_{catena.lower()}.png"
+                page.screenshot(path=debug, full_page=False)
+                print(f"  📸  Screenshot salvato: {debug}")
+                print(f"       Aprilo per vedere se il sito ha risposto o bloccato")
+            except Exception:
+                pass
         finally:
             browser.close()
 
-    # Pulizia: rimuovi righe vuote consecutive
-    righe  = [r.strip() for r in testo.splitlines() if r.strip()]
-    testo  = "\n".join(righe)
-
-    # Tronca a 15.000 caratteri — Gemini Flash ha un context window enorme
-    # ma più testo = più token = più lento. 15k caratteri è sufficiente per
-    # coprire ~2-3 pagine di volantino.
-    testo = testo[:15_000]
-
-    print(f"  📄  Estratti {len(testo)} caratteri di testo")
+    righe = [r.strip() for r in testo.splitlines() if r.strip()]
+    testo = "\n".join(righe)[:15_000]
+    print(f"  📄  Estratti {len(testo)} caratteri")
     return testo
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-#  STEP 2 — PARSING con Gemini
-# ─────────────────────────────────────────────────────────────────────────────
+# ─── STEP 2: PARSING GEMINI ──────────────────────────────────────────────────
 
 SYSTEM_PROMPT = """
 Sei un assistente specializzato nell'estrazione di dati strutturati da testi
@@ -141,89 +139,67 @@ di volantini promozionali di supermercati italiani.
 
 OBIETTIVO: Estrai OGNI prodotto in offerta e restituisci un array JSON valido.
 
-SCHEMA per ogni prodotto (tutti i campi sono stringhe o numeri, MAI oggetti annidati):
+SCHEMA per ogni prodotto:
 {
-  "nome_prodotto":    "stringa — nome del prodotto senza marca, es: Gin Dry",
+  "nome_prodotto":    "stringa senza marca",
   "marca":            "stringa oppure null",
-  "quantita":         "stringa oppure null — es: 70cl, 1kg, conf. 4x100g",
-  "prezzo":           numero decimale con punto, es: 9.90,
-  "prezzo_originale": numero decimale oppure null — solo se presente il prezzo barrato,
-  "categoria":        "stringa oppure null — es: Spirits, Birra, Latticini, Salumi",
+  "quantita":         "es: 70cl, 1kg, conf. 4x100g oppure null",
+  "prezzo":           9.90,
+  "prezzo_originale": 13.50,
+  "categoria":        "es: Spirits, Birra, Latticini oppure null",
   "data_inizio":      "YYYY-MM-DD",
   "data_fine":        "YYYY-MM-DD"
 }
 
-REGOLE CRITICHE:
-1. Restituisci SOLO il JSON array [ {...}, {...} ], zero testo prima o dopo.
-2. Prezzo: numero puro senza €. Virgola italiana → punto decimale: "2,99" → 2.99
-3. Se le date non sono esplicite nel testo, usa quelle che ti fornisco nel contesto.
-4. Ignora testi non-prodotto: indirizzi, orari, disclaimer, numero verde.
-5. Prodotti diversi = righe separate. Non raggruppare.
+REGOLE:
+1. Rispondi SOLO con il JSON array, zero testo aggiuntivo.
+2. Prezzo come numero decimale con punto (2.99 non "2,99€").
+3. Se le date non ci sono nel testo, usa quelle del contesto.
+4. Ignora indirizzi, orari, numero verde, disclaimer.
 """
 
-def _normalizza_nome(nome: str, marca: Optional[str] = None) -> str:
-    """
-    Produce il nome normalizzato per il fuzzy search nel DB.
-    Esempio: "Gin Gordon's Dry 70cl" → "gin gordons dry 70cl"
-    """
-    testo = f"{marca} {nome}" if marca else nome
-    # lowercase
-    testo = testo.lower()
-    # rimuovi accenti
-    testo = "".join(
-        c for c in unicodedata.normalize("NFD", testo)
-        if unicodedata.category(c) != "Mn"
+def _normalizza(nome: str, marca: Optional[str]) -> str:
+    t = f"{marca} {nome}" if marca else nome
+    t = t.lower()
+    t = "".join(c for c in unicodedata.normalize("NFD", t) if unicodedata.category(c) != "Mn")
+    t = re.sub(r"[''`']", "", t)
+    t = re.sub(r"[^a-z0-9\s]", " ", t)
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def parsa_con_gemini(testo: str, catena: str, d_inizio: date, d_fine: date) -> list[dict]:
+    genai.configure(api_key=GEMINI_API_KEY)
+    model = genai.GenerativeModel(
+        model_name="gemini-1.5-flash",
+        system_instruction=SYSTEM_PROMPT,
+        generation_config=genai.GenerationConfig(
+            response_mime_type="application/json",
+            temperature=0.1,
+        ),
     )
-    # rimuovi apostrofi e caratteri speciali
-    testo = re.sub(r"[''`']", "", testo)
-    testo = re.sub(r"[^a-z0-9\s]", " ", testo)
-    # comprimi spazi
-    return re.sub(r"\s+", " ", testo).strip()
 
-
-def parsa_con_gemini(
-    testo_ocr: str,
-    catena: str,
-    data_inizio: date,
-    data_fine: date,
-) -> list[dict]:
-    
-    client = genai.Client(api_key=GEMINI_API_KEY)
-
-    prompt_utente = f"""
+    prompt = f"""
 CATENA: {catena}
-PERIODO VALIDITÀ: dal {data_inizio.strftime("%d/%m/%Y")} al {data_fine.strftime("%d/%m/%Y")}
+PERIODO: dal {d_inizio.strftime("%d/%m/%Y")} al {d_fine.strftime("%d/%m/%Y")}
 
 TESTO VOLANTINO:
 ---
-{testo_ocr}
+{testo}
 ---
 
-Estrai tutti i prodotti in offerta. Rispondi SOLO con il JSON array.
+Estrai tutti i prodotti. Rispondi SOLO con il JSON array.
 """
-
-    print(f"  🤖  Invio a Gemini ({len(testo_ocr)} caratteri)…")
+    print(f"  🤖  Invio a Gemini…")
     try:
-        response = client.models.generate_content(
-            model="gemini-2.0-flash",
-            contents=prompt_utente,
-            config=GenerateContentConfig(
-                system_instruction=SYSTEM_PROMPT,
-                response_mime_type="application/json",
-                temperature=0.1,
-            )
-        )
-        raw = response.text.strip()
+        raw = model.generate_content(prompt).text.strip()
+        raw = re.sub(r"```(?:json)?", "", raw).strip()
     except Exception as e:
         print(f"  ❌  Gemini errore: {e}")
         return []
 
-    raw = re.sub(r"http://googleusercontent.com/immersive_entry_chip/0", "", raw)
-    start = raw.find("[")
-    end   = raw.rfind("]")
-    if start == -1 or end == -1:
-        print(f"  ⚠️  Gemini non ha restituito un array JSON valido")
-        print(f"      Risposta raw (primi 300 char): {raw[:300]}")
+    start, end = raw.find("["), raw.rfind("]")
+    if start == -1:
+        print(f"  ⚠️  Risposta non è un JSON array")
         return []
 
     try:
@@ -232,13 +208,11 @@ Estrai tutti i prodotti in offerta. Rispondi SOLO con il JSON array.
         print(f"  ⚠️  JSON non valido: {e}")
         return []
 
-    # Validazione e normalizzazione di ogni offerta
-    offerte_valide = []
+    valide = []
     for item in items:
         nome = str(item.get("nome_prodotto", "")).strip()
         if not nome:
             continue
-
         try:
             prezzo = float(str(item.get("prezzo", 0)).replace(",", "."))
         except (ValueError, TypeError):
@@ -246,219 +220,125 @@ Estrai tutti i prodotti in offerta. Rispondi SOLO con il JSON array.
         if prezzo <= 0:
             continue
 
-        prezzo_orig = item.get("prezzo_originale")
+        orig = item.get("prezzo_originale")
         try:
-            prezzo_orig = float(str(prezzo_orig).replace(",", ".")) if prezzo_orig else None
+            orig = float(str(orig).replace(",", ".")) if orig else None
         except (ValueError, TypeError):
-            prezzo_orig = None
+            orig = None
 
-        def _parse_date(val, default: date) -> date:
-            if not val:
-                return default
-            try:
-                return date.fromisoformat(str(val)[:10])
-            except ValueError:
-                return default
-
-        d_i = _parse_date(item.get("data_inizio"), data_inizio)
-        d_f = _parse_date(item.get("data_fine"),   data_fine)
-        if d_f < d_i:
-            d_f = d_i + timedelta(days=6)
+        def pd(v, default):
+            try: return date.fromisoformat(str(v)[:10])
+            except: return default
 
         marca = str(item.get("marca", "")).strip() or None
-
-        offerte_valide.append({
+        valide.append({
             "nome_prodotto":     nome,
             "marca":             marca,
             "quantita":          item.get("quantita"),
             "prezzo":            round(prezzo, 2),
-            "prezzo_originale":  round(prezzo_orig, 2) if prezzo_orig else None,
+            "prezzo_originale":  round(orig, 2) if orig else None,
             "categoria":         item.get("categoria"),
-            "data_inizio":       d_i,
-            "data_fine":         d_f,
-            "nome_normalizzato": _normalizza_nome(nome, marca),
+            "data_inizio":       pd(item.get("data_inizio"), d_inizio),
+            "data_fine":         pd(item.get("data_fine"), d_fine),
+            "nome_normalizzato": _normalizza(nome, marca),
         })
 
-    print(f"  ✅  Estratte {len(offerte_valide)} offerte valide")
-    return offerte_valide
+    print(f"  ✅  {len(valide)} offerte valide")
+    return valide
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-#  STEP 3 — INSERT NEL DB
-# ─────────────────────────────────────────────────────────────────────────────
+# ─── STEP 3: INSERT DB ───────────────────────────────────────────────────────
 
-def _get_o_crea_supermercato(
-    db,
-    catena: str,
-    lat: float,
-    lon: float,
-    logo_url: Optional[str],
-) -> Supermercato:
-    """
-    Cerca il supermercato nel DB per nome catena.
-    Se non esiste lo crea con le coordinate fornite.
-    In una versione più avanzata ci sarebbero più punti vendita per catena;
-    per l'MVP usiamo un record unico per catena.
-    """
-    sup = db.query(Supermercato).filter(
-        Supermercato.catena == catena
-    ).first()
-
-    if not sup:
-        print(f"  🏪  Creo supermercato '{catena}' nel DB…")
-        sup = Supermercato(
-            catena   = catena,
-            nome     = catena,
-            indirizzo= "Indirizzo di esempio — aggiorna dal DB",
-            citta    = "Milano",
-            logo_url = logo_url,
-            attivo   = True,
-            # ST_MakePoint(lon, lat) — nota l'ordine: longitudine PRIMA
-            location = f"SRID=4326;POINT({lon} {lat})",
-        )
-        db.add(sup)
-        db.commit()
-        db.refresh(sup)
-        print(f"  ✅  Supermercato creato con ID: {sup.id}")
-    else:
-        print(f"  ✅  Supermercato '{catena}' trovato: {sup.id}")
-
-    return sup
-
-
-def inserisci_offerte(
-    supermercato: Supermercato,
-    offerte: list[dict],
-) -> int:
-    """
-    Inserisce le offerte nel DB.
-    Prima cancella le offerte scadute della stessa catena per evitare duplicati
-    tra run successive dello stesso volantino.
-    Ritorna il numero di offerte inserite.
-    """
-    if not offerte:
-        return 0
-
+def get_o_crea_supermercato(catena, lat, lon, logo_url):
     db = SessionLocal()
     try:
-        # Elimina offerte precedenti della stessa catena (stesso supermercato)
-        # in modo da poter ri-lanciare lo script senza duplicati
-        cancellate = (
-            db.query(Offerta)
-            .filter(Offerta.supermercato_id == supermercato.id)
-            .delete()
-        )
-        if cancellate:
-            print(f"  🗑️   Rimosse {cancellate} offerte precedenti di '{supermercato.catena}'")
-
-        # Bulk insert
-        offerte_orm = [
-            Offerta(
-                supermercato_id   = supermercato.id,
-                nome_prodotto     = o["nome_prodotto"],
-                marca             = o.get("marca"),
-                quantita          = o.get("quantita"),
-                prezzo            = o["prezzo"],
-                prezzo_originale  = o.get("prezzo_originale"),
-                categoria         = o.get("categoria"),
-                nome_normalizzato = o.get("nome_normalizzato"),
-                data_inizio       = o["data_inizio"],
-                data_fine         = o["data_fine"],
+        sup = db.query(Supermercato).filter(Supermercato.catena == catena).first()
+        if not sup:
+            sup = Supermercato(
+                catena=catena, nome=catena,
+                indirizzo="Da aggiornare", citta="Da aggiornare",
+                logo_url=logo_url, attivo=True,
+                location=f"SRID=4326;POINT({lon} {lat})",
             )
-            for o in offerte
-        ]
-        db.bulk_save_objects(offerte_orm)
-        db.commit()
+            db.add(sup)
+            db.commit()
+            db.refresh(sup)
+            print(f"  🏪  Supermercato '{catena}' creato")
+        else:
+            print(f"  🏪  Supermercato '{catena}' trovato")
+        return sup
+    finally:
+        db.close()
 
+
+def inserisci_offerte(sup, offerte):
+    if not offerte:
+        return 0
+    db = SessionLocal()
+    try:
+        n = db.query(Offerta).filter(Offerta.supermercato_id == sup.id).delete()
+        if n:
+            print(f"  🗑️   Rimosse {n} offerte precedenti")
+        db.bulk_save_objects([
+            Offerta(
+                supermercato_id=sup.id,
+                nome_prodotto=o["nome_prodotto"],
+                marca=o.get("marca"),
+                quantita=o.get("quantita"),
+                prezzo=o["prezzo"],
+                prezzo_originale=o.get("prezzo_originale"),
+                categoria=o.get("categoria"),
+                nome_normalizzato=o.get("nome_normalizzato"),
+                data_inizio=o["data_inizio"],
+                data_fine=o["data_fine"],
+            ) for o in offerte
+        ])
+        db.commit()
+        print(f"  💾  Inserite {len(offerte)} offerte")
+        return len(offerte)
     except Exception as e:
         db.rollback()
-        print(f"  ❌  Errore inserimento DB: {e}")
+        print(f"  ❌  Errore DB: {e}")
         raise
     finally:
         db.close()
 
-    print(f"  💾  Inserite {len(offerte_orm)} offerte nel DB")
-    return len(offerte_orm)
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-#  MAIN — pipeline completa
-# ─────────────────────────────────────────────────────────────────────────────
+# ─── MAIN ────────────────────────────────────────────────────────────────────
 
 def main():
-    print("=" * 60)
-    print("  PrezzoRadar — Pipeline scraping MVP")
-    print("=" * 60)
+    print("=" * 55)
+    print("  PrezzoRadar — Pipeline scraping")
+    print("=" * 55)
 
-    # Inizializza DB (crea tabelle se non esistono)
-    print("\n📦  Inizializzo database…")
     init_db()
+    oggi, fine = date.today(), date.today() + timedelta(days=6)
+    totale = 0
 
-    oggi     = date.today()
-    fine     = oggi + timedelta(days=6)
-    totale   = 0
+    for cfg in CATENE:
+        catena = cfg["catena"]
+        print(f"\n{'─'*45}\n  {catena.upper()}\n{'─'*45}")
 
-    for config in CATENE:
-        catena = config["catena"]
-        print(f"\n{'─'*50}")
-        print(f"  Catena: {catena.upper()}")
-        print(f"{'─'*50}")
-
-        # ── Step 1: scraping ──────────────────────────────────────────────────
-        testo = scrape_testo_volantino(config["url"], catena)
+        testo = scrape_testo_volantino(cfg["url"], catena)
         if not testo.strip():
-            print(f"  ⚠️  Testo vuoto per {catena}, salto.")
+            print(f"  ⚠️  Testo vuoto — vedi debug_{catena.lower()}.png")
+            print(f"  💡  Alternativa rapida: python seed_db.py")
             continue
 
-        # ── Step 2: parsing con Gemini ────────────────────────────────────────
-        offerte = parsa_con_gemini(
-            testo_ocr   = testo,
-            catena      = catena,
-            data_inizio = oggi,
-            data_fine   = fine,
-        )
+        offerte = parsa_con_gemini(testo, catena, oggi, fine)
         if not offerte:
-            print(f"  ⚠️  Nessuna offerta estratta per {catena}, salto.")
             continue
 
-        # ── Step 3: insert nel DB ─────────────────────────────────────────────
-        db = SessionLocal()
-        try:
-            sup = _get_o_crea_supermercato(
-                db       = db,
-                catena   = catena,
-                lat      = config["lat"],
-                lon      = config["lon"],
-                logo_url = config.get("logo_url"),
-            )
-        finally:
-            db.close()
+        sup = get_o_crea_supermercato(catena, cfg["lat"], cfg["lon"], cfg.get("logo_url"))
+        totale += inserisci_offerte(sup, offerte)
 
-        n = inserisci_offerte(sup, offerte)
-        totale += n
-
-    print(f"\n{'='*60}")
-    print(f"  ✅  Pipeline completata. Totale offerte inserite: {totale}")
-    print(f"{'='*60}\n")
-
-    # ── Anteprima di 5 record per verifica ───────────────────────────────────
-    print("  Anteprima ultime offerte nel DB:")
-    with engine.connect() as conn:
-        rows = conn.execute(text("""
-            SELECT s.catena, o.nome_prodotto, o.marca, o.quantita, o.prezzo, o.data_fine
-            FROM offerte o
-            JOIN supermercati s ON s.id = o.supermercato_id
-            ORDER BY o.created_at DESC
-            LIMIT 5
-        """)).fetchall()
-    if rows:
-        print(f"  {'Catena':<14} {'Prodotto':<30} {'Marca':<15} {'Qt':<8} {'€':>6}  Scade")
-        print(f"  {'-'*80}")
-        for r in rows:
-            print(f"  {str(r[0]):<14} {str(r[1]):<30} {str(r[2] or ''):<15} "
-                  f"{str(r[3] or ''):<8} {float(r[4]):>6.2f}  {r[5]}")
-    else:
-        print("  (nessun record trovato — controlla la configurazione)")
+    print(f"\n{'='*55}")
+    print(f"  Totale offerte inserite: {totale}")
+    if totale == 0:
+        print(f"\n  💡  I siti stanno bloccando lo scraping.")
+        print(f"      Per testare Flutter usa i dati mock:")
+        print(f"      python seed_db.py")
+    print(f"{'='*55}\n")
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@
 # No other meaning or use of this file is supported.
 
 method=url
-command=C:/Users/acest/AppData/Local/stm32cube/bundles/cmake/4.2.3+st.1/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/nuget-populate-prefix/src/nuget-populate-stamp/download-nuget-populate.cmake;COMMAND;C:/Users/acest/AppData/Local/stm32cube/bundles/cmake/4.2.3+st.1/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/nuget-populate-prefix/src/nuget-populate-stamp/verify-nuget-populate.cmake
+command=C:/Program Files (x86)/Microsoft Visual Studio/18/BuildTools/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/nuget-populate-prefix/src/nuget-populate-stamp/download-nuget-populate.cmake;COMMAND;C:/Program Files (x86)/Microsoft Visual Studio/18/BuildTools/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/progetti/PrezzoRadar/build/_deps/nuget-subbuild/nuget-populate-prefix/src/nuget-populate-stamp/verify-nuget-populate.cmake
 source_dir=C:/progetti/PrezzoRadar/build/_deps/nuget-src
 work_dir=C:/progetti/PrezzoRadar/build/_deps
 url(s)=https://dist.nuget.org/win-x86-commandline/v6.0.0/nuget.exe

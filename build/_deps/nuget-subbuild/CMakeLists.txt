@@ -1,7 +1,7 @@
 # Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
 # file LICENSE.rst or https://cmake.org/licensing for details.
 
-cmake_minimum_required(VERSION 4.2.3)
+cmake_minimum_required(VERSION 4.1.2-msvc8)
 
 # Reject any attempt to use a toolchain file. We must not use one because
 # we could be downloading it here. If the CMAKE_TOOLCHAIN_FILE environment
@@ -36,7 +36,7 @@ ExternalProject_Get_Property(nuget-populate DOWNLOADED_FILE)
 get_filename_component(dlFileName "${DOWNLOADED_FILE}" NAME)
 
 ExternalProject_Add_Step(nuget-populate copyfile
-  COMMAND    "C:/Users/acest/AppData/Local/stm32cube/bundles/cmake/4.2.3+st.1/bin/cmake.exe" -E copy_if_different
+  COMMAND    "C:/Program Files (x86)/Microsoft Visual Studio/18/BuildTools/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe" -E copy_if_different
              "<DOWNLOADED_FILE>" "C:/progetti/PrezzoRadar/build/_deps/nuget-src"
   DEPENDEES  patch
   DEPENDERS  configure

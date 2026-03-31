@@ -95,10 +95,10 @@ def search(
             o.prezzo_originale::float,
             o.data_fine::text,
             ROUND(
-                ST_Distance(
+                (ST_Distance(
                     s.location::geography,
                     ST_SetSRID(ST_MakePoint(:lon, :lat), 4326)::geography
-                ) / 1000.0,
+                ) / 1000.0)::numeric,
             2)::float                                           AS distanza_km
         FROM offerte o
         JOIN supermercati s ON s.id = o.supermercato_id

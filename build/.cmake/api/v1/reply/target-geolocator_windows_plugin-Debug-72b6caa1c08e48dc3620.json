@@ -135,22 +135,6 @@
 			}
 		]
 	},
-	"codemodelVersion" : 
-	{
-		"major" : 2,
-		"minor" : 9
-	},
-	"compileDependencies" : 
-	[
-		{
-			"backtrace" : 2,
-			"id" : "flutter::@2bb09fbb03a373b2cb34"
-		},
-		{
-			"backtrace" : 2,
-			"id" : "flutter_wrapper_plugin::@2bb09fbb03a373b2cb34"
-		}
-	],
 	"compileGroups" : 
 	[
 		{
@@ -276,17 +260,6 @@
 		],
 		"language" : "CXX"
 	},
-	"linkLibraries" : 
-	[
-		{
-			"backtrace" : 2,
-			"id" : "flutter::@2bb09fbb03a373b2cb34"
-		},
-		{
-			"backtrace" : 2,
-			"id" : "flutter_wrapper_plugin::@2bb09fbb03a373b2cb34"
-		}
-	],
 	"name" : "geolocator_windows_plugin",
 	"nameOnDisk" : "geolocator_windows_plugin.dll",
 	"paths" : 

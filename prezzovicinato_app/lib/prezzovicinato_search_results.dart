@@ -75,7 +75,8 @@ class OfferResult {
 
 class PrezzoVicinatoApi {
   // ignore: non_constant_identifier_names
-  static const _baseUrl = 'https://api.prezzovicinato.it/v1';
+  // Emulatore Android  ← quasi certamente il tuo caso su Windows
+  static const _baseUrl = 'http://172.19.159.118:8000';
 
   static Future<List<OfferResult>> search({
     required String query,
@@ -93,7 +94,8 @@ class PrezzoVicinatoApi {
     final resp = await http.get(uri).timeout(const Duration(seconds: 10));
     if (resp.statusCode != 200) throw Exception('Errore API: ${resp.statusCode}');
 
-    final data = jsonDecode(resp.body) as List;
+    final Map<String, dynamic> rispostaCompleta = json.decode(resp.body);
+    final List<dynamic> data = rispostaCompleta['results']; // Peschiamo solo la lista!
     return data.map((e) => OfferResult.fromJson(e as Map<String, dynamic>)).toList();
   }
 }

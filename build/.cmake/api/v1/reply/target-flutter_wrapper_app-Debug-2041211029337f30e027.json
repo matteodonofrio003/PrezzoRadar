@@ -22,12 +22,12 @@
 		[
 			"add_library",
 			"add_dependencies",
-			"target_link_libraries",
 			"target_compile_options",
 			"apply_standard_settings",
 			"add_definitions",
 			"target_compile_definitions",
 			"target_include_directories",
+			"target_link_libraries",
 			"target_compile_features"
 		],
 		"files" : 
@@ -53,76 +53,64 @@
 				"parent" : 0
 			},
 			{
-				"command" : 2,
-				"file" : 0,
-				"line" : 80,
-				"parent" : 0
-			},
-			{
-				"command" : 4,
+				"command" : 3,
 				"file" : 0,
 				"line" : 79,
 				"parent" : 0
 			},
 			{
-				"command" : 3,
+				"command" : 2,
 				"file" : 1,
 				"line" : 42,
-				"parent" : 4
+				"parent" : 3
 			},
 			{
-				"command" : 3,
+				"command" : 2,
 				"file" : 1,
 				"line" : 43,
-				"parent" : 4
+				"parent" : 3
 			},
 			{
 				"file" : 1
 			},
 			{
-				"command" : 5,
+				"command" : 4,
 				"file" : 1,
 				"line" : 33,
-				"parent" : 7
+				"parent" : 6
 			},
 			{
-				"command" : 6,
+				"command" : 5,
 				"file" : 1,
 				"line" : 45,
-				"parent" : 4
+				"parent" : 3
+			},
+			{
+				"command" : 5,
+				"file" : 1,
+				"line" : 44,
+				"parent" : 3
 			},
 			{
 				"command" : 6,
-				"file" : 1,
-				"line" : 44,
-				"parent" : 4
+				"file" : 0,
+				"line" : 81,
+				"parent" : 0
 			},
 			{
 				"command" : 7,
 				"file" : 0,
-				"line" : 81,
+				"line" : 80,
 				"parent" : 0
 			},
 			{
 				"command" : 8,
 				"file" : 1,
 				"line" : 41,
-				"parent" : 4
+				"parent" : 3
 			}
 		]
 	},
-	"codemodelVersion" : 
-	{
-		"major" : 2,
-		"minor" : 9
-	},
-	"compileDependencies" : 
-	[
-		{
-			"backtrace" : 3,
-			"id" : "flutter::@2bb09fbb03a373b2cb34"
-		}
-	],
 	"compileGroups" : 
 	[
 		{
@@ -132,49 +120,49 @@
 					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17"
 				},
 				{
-					"backtrace" : 5,
+					"backtrace" : 4,
 					"fragment" : "/W4"
 				},
 				{
-					"backtrace" : 5,
+					"backtrace" : 4,
 					"fragment" : "/WX"
 				},
 				{
-					"backtrace" : 5,
+					"backtrace" : 4,
 					"fragment" : "/wd\\\"4100\\\""
 				},
 				{
-					"backtrace" : 6,
+					"backtrace" : 5,
 					"fragment" : "/EHsc"
 				}
 			],
 			"defines" : 
 			[
 				{
-					"backtrace" : 8,
+					"backtrace" : 7,
 					"define" : "UNICODE"
 				},
 				{
-					"backtrace" : 9,
+					"backtrace" : 8,
 					"define" : "_DEBUG"
 				},
 				{
-					"backtrace" : 10,
+					"backtrace" : 9,
 					"define" : "_HAS_EXCEPTIONS=0"
 				},
 				{
-					"backtrace" : 8,
+					"backtrace" : 7,
 					"define" : "_UNICODE"
 				}
 			],
 			"includes" : 
 			[
 				{
-					"backtrace" : 11,
+					"backtrace" : 10,
 					"path" : "C:/progetti/PrezzoRadar/prezzovicinato_app/windows/flutter/ephemeral/cpp_client_wrapper/include"
 				},
 				{
-					"backtrace" : 3,
+					"backtrace" : 11,
 					"path" : "C:/progetti/PrezzoRadar/prezzovicinato_app/windows/flutter/ephemeral"
 				}
 			],
@@ -204,36 +192,8 @@
 		}
 	],
 	"id" : "flutter_wrapper_app::@2bb09fbb03a373b2cb34",
-	"interfaceCompileDependencies" : 
-	[
-		{
-			"backtrace" : 3,
-			"id" : "flutter::@2bb09fbb03a373b2cb34"
-		}
-	],
-	"interfaceLinkLibraries" : 
-	[
-		{
-			"backtrace" : 3,
-			"id" : "flutter::@2bb09fbb03a373b2cb34"
-		}
-	],
-	"linkLibraries" : 
-	[
-		{
-			"backtrace" : 3,
-			"id" : "flutter::@2bb09fbb03a373b2cb34"
-		}
-	],
 	"name" : "flutter_wrapper_app",
 	"nameOnDisk" : "flutter_wrapper_app.lib",
-	"orderDependencies" : 
-	[
-		{
-			"backtrace" : 2,
-			"id" : "flutter_assemble::@2bb09fbb03a373b2cb34"
-		}
-	],
 	"paths" : 
 	{
 		"build" : "flutter",

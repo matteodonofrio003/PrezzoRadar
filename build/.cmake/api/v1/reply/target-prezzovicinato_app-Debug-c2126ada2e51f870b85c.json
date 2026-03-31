@@ -181,26 +181,6 @@
 			}
 		]
 	},
-	"codemodelVersion" : 
-	{
-		"major" : 2,
-		"minor" : 9
-	},
-	"compileDependencies" : 
-	[
-		{
-			"backtrace" : 4,
-			"id" : "flutter::@2bb09fbb03a373b2cb34"
-		},
-		{
-			"backtrace" : 4,
-			"id" : "flutter_wrapper_app::@2bb09fbb03a373b2cb34"
-		},
-		{
-			"backtrace" : 8,
-			"id" : "geolocator_windows_plugin::@246349889b4a55bdeebd"
-		}
-	],
 	"compileGroups" : 
 	[
 		{
@@ -455,34 +435,8 @@
 		],
 		"language" : "CXX"
 	},
-	"linkLibraries" : 
-	[
-		{
-			"backtrace" : 4,
-			"id" : "flutter::@2bb09fbb03a373b2cb34"
-		},
-		{
-			"backtrace" : 4,
-			"id" : "flutter_wrapper_app::@2bb09fbb03a373b2cb34"
-		},
-		{
-			"backtrace" : 5,
-			"fragment" : "dwmapi.lib"
-		},
-		{
-			"backtrace" : 8,
-			"id" : "geolocator_windows_plugin::@246349889b4a55bdeebd"
-		}
-	],
 	"name" : "prezzovicinato_app",
 	"nameOnDisk" : "prezzovicinato_app.exe",
-	"orderDependencies" : 
-	[
-		{
-			"backtrace" : 11,
-			"id" : "flutter_assemble::@2bb09fbb03a373b2cb34"
-		}
-	],
 	"paths" : 
 	{
 		"build" : "runner",
