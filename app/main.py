@@ -65,7 +65,7 @@ def search(
     q:      str   = Query(..., min_length=2, description="Termine di ricerca, es: 'Gin Gordon\\'s'"),
     lat:    float = Query(..., description="Latitudine GPS dell'utente"),
     lon:    float = Query(..., description="Longitudine GPS dell'utente"),
-    raggio: int   = Query(5000, ge=500, le=30000, description="Raggio in metri (default 5km)"),
+    raggio: int   = Query(5000, ge=500, le=1000000, description="Raggio in metri"),
     limit:  int   = Query(50,   ge=1,   le=100),
     db:     Session = Depends(get_db),
 ):

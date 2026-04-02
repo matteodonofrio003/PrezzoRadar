@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'prezzovicinato_search_results.dart'; // Richiama la schermata creata l'altra volta
+import 'prezzovicinato_search_results.dart';
 
 void main() {
-  runApp(const PrezzoRadarApp()); 
+  runApp(const PrezzoRadarApp());
 }
 
 class PrezzoRadarApp extends StatelessWidget {
@@ -31,54 +30,28 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _searchCtrl = TextEditingController();
-  bool _isLoading = false;
 
-  // 📍 ECCO LA FUNZIONE DI CLAUDE INSERITA QUI
-  Future<Position> _getPosition() async {
-    bool enabled = await Geolocator.isLocationServiceEnabled();
-    if (!enabled) throw Exception('GPS disattivato');
-
-    LocationPermission perm = await Geolocator.checkPermission();
-    if (perm == LocationPermission.denied) {
-      perm = await Geolocator.requestPermission();
-      if (perm == LocationPermission.denied) throw Exception('Permesso negato');
-    }
-    if (perm == LocationPermission.deniedForever) {
-      throw Exception('Permessi negati permanentemente. Vai nelle impostazioni.');
-    }
-    return await Geolocator.getCurrentPosition();
+  @override
+  void dispose() {
+    _searchCtrl.dispose();
+    super.dispose();
   }
 
-  // 🚀 FUNZIONE CHE PARTE AL CLICK DEL BOTTONE
-  void _cerca() async {
-    if (_searchCtrl.text.trim().isEmpty) return;
+  // FIX: SearchResultsPage gestisce GPS internamente — qui non servono coordinate.
+  // La funzione _getPosition() è stata rimossa da questo file.
+  void _cerca() {
+    final query = _searchCtrl.text.trim();
+    if (query.isEmpty) return;
 
-    setState(() => _isLoading = true);
-
-    try {
-      // 1. Chiede il permesso e calcola il GPS
-      final pos = await _getPosition();
-
-      // 2. Apre la schermata dei risultati passandogli le coordinate!
-      if (mounted) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SearchResultsPage(
-              initialQuery: _searchCtrl.text.trim(),
-              userLat: pos.latitude,
-              userLon: pos.longitude,
-            ),
-          ),
-        );
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Errore GPS: $e')),
-      );
-    } finally {
-      if (mounted) setState(() => _isLoading = false);
-    }
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SearchResultsPage(
+          initialQuery: query,
+          // ✅ Rimosso userLat e userLon — non esistono più nel costruttore
+        ),
+      ),
+    );
   }
 
   @override
@@ -97,37 +70,49 @@ class _HomePageState extends State<HomePage> {
                 'PrezzoRadar',
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
+              const SizedBox(height: 8),
+              const Text(
+                'Trova le offerte vicino a te',
+                style: TextStyle(fontSize: 14, color: Color(0xFF6B7280)),
+              ),
               const SizedBox(height: 40),
               TextField(
-                controller: _searchCtrl,
+                controller:      _searchCtrl,
+                textInputAction: TextInputAction.search,
+                onSubmitted:     (_) => _cerca(),
                 decoration: InputDecoration(
-                  hintText: 'Cosa vuoi cercare? (es. Gin)',
+                  hintText:   'Cosa vuoi cercare? (es. Gin, Birra…)',
                   prefixIcon: const Icon(Icons.search),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: Color(0xFF1A56DB),
+                      width: 2,
+                    ),
+                  ),
                 ),
-                onSubmitted: (_) => _cerca(),
               ),
               const SizedBox(height: 16),
               SizedBox(
-                width: double.infinity,
+                width:  double.infinity,
                 height: 50,
                 child: FilledButton(
-                  onPressed: _isLoading ? null : _cerca,
+                  // FIX: rimosso _isLoading — il GPS ora parte dentro SearchResultsPage,
+                  // quindi questa pagina non ha più bisogno di mostrare un loader.
+                  onPressed: _cerca,
                   style: FilledButton.styleFrom(
                     backgroundColor: const Color(0xFF1A56DB),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: _isLoading
-                      ? const SizedBox(
-                          width: 24,
-                          height: 24,
-                          child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
-                        )
-                      : const Text('Cerca Offerte Vicine', style: TextStyle(fontSize: 16)),
+                  child: const Text(
+                    'Cerca Offerte Vicine',
+                    style: TextStyle(fontSize: 16),
+                  ),
                 ),
               ),
             ],
